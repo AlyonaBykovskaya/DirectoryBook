@@ -1,0 +1,50 @@
+﻿
+@model IEnumerable<DirectoryBook.Models.Phone>
+
+@{
+    ViewBag.Title = "Directory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section data{
+
+    <p>
+        @Html.ActionLink("Add New Contact", "AddData")
+    </p>
+    <table>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Surname
+            </th>
+            <th>
+                Telephone
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name.TName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tel)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "EditData", new {id = item.Id}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                </td>
+            </tr>
+        }
+
+    </table>
+}

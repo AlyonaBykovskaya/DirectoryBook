@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PersonsDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="PersonsDBModelStoreContainer">
+          <EntitySet Name="Names" EntityType="PersonsDBModel.Store.Names" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Phones" EntityType="PersonsDBModel.Store.Phones" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="PK_Phones_Names" Association="PersonsDBModel.Store.PK_Phones_Names">
+            <End Role="Names" EntitySet="Names" />
+            <End Role="Phones" EntitySet="Phones" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Names">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TName" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="Surname" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Phones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="20" />
+          <Property Name="Additional_Information" Type="nvarchar" MaxLength="20" />
+          <Property Name="PersonId" Type="int" />
+        </EntityType>
+        <Association Name="PK_Phones_Names">
+          <End Role="Names" Type="PersonsDBModel.Store.Names" Multiplicity="0..1" />
+          <End Role="Phones" Type="PersonsDBModel.Store.Phones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Names">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Phones">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PersonsDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PersonsDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Names" EntityType="PersonsDBModel.Name" />
+          <EntitySet Name="Phones" EntityType="PersonsDBModel.Phone" />
+          <AssociationSet Name="PK_Phones_Names" Association="PersonsDBModel.PK_Phones_Names">
+            <End Role="Names" EntitySet="Names" />
+            <End Role="Phones" EntitySet="Phones" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Name">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="TName" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Surname" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Phones" Relationship="PersonsDBModel.PK_Phones_Names" FromRole="Names" ToRole="Phones" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Tel" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Additional_Information" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="PersonId" Type="Int32" />
+          <NavigationProperty Name="Name" Relationship="PersonsDBModel.PK_Phones_Names" FromRole="Phones" ToRole="Names" />
+        </EntityType>
+        <Association Name="PK_Phones_Names">
+          <End Role="Names" Type="PersonsDBModel.Name" Multiplicity="0..1" />
+          <End Role="Phones" Type="PersonsDBModel.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Names">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Phones">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PersonsDBModelStoreContainer" CdmEntityContainer="PersonsDBEntities">
+          <EntitySetMapping Name="Names">
+            <EntityTypeMapping TypeName="PersonsDBModel.Name">
+              <MappingFragment StoreEntitySet="Names">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TName" ColumnName="TName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phones">
+            <EntityTypeMapping TypeName="PersonsDBModel.Phone">
+              <MappingFragment StoreEntitySet="Phones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Additional_Information" ColumnName="Additional_Information" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

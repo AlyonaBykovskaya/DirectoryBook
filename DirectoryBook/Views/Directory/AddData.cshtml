@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Add Data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model DirectoryBook.Models.Phone
+@section adding{
+    
+    @using (Html.BeginForm("AddData", "Directory", FormMethod.Post, new { id = "PersonForm" }))
+{ 
+        
+        <p>
+            @Html.LabelFor(m => m.Name.TName, "First Name")
+            <br />
+            @Html.TextBoxFor(m => m.Name.TName)
+            @Html.ValidationMessageFor(m => m.Name.TName)
+          
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Name.Surname, "Last Name")
+            <br />
+            @Html.TextBoxFor(m => m.Name.Surname)
+            @Html.ValidationMessageFor(m => m.Name.Surname)
+ 
+        </p>
+    <p>
+        @Html.LabelFor(m => m.Tel, "Telephone")
+        <br />
+        @Html.TextBoxFor(m => m.Tel) 
+        @Html.ValidationMessageFor(m => m.Tel)
+    </p>
+        
+        <p>
+            @Html.LabelFor(m => m.Additional_Information, "Additional Information")
+            <br />
+            @Html.TextBoxFor(m => m.Additional_Information)
+            @Html.ValidationMessageFor(m => m.Additional_Information)
+        </p>
+        <p><input type="submit" value="Send" /> @Html.ActionLink("Return to the Directory","ShowData","Directory")</p>
+  
+}
+}
+    

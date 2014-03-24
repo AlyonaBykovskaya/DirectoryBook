@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Edit Data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model DirectoryBook.Models.Phone
+@section edition{
+
+
+@using (Html.BeginForm("EditData", "Directory", FormMethod.Post, new { id = "PersonForm" }))
+{
+    
+        @Html.HiddenFor(m => m.Id)
+       <p>
+            @Html.LabelFor(m => m.Name.TName, "First Name")
+            <br />
+            @Html.EditorFor(m => m.Name.TName)
+
+            @Html.ValidationMessageFor(m => m.Name.TName)
+          
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Name.Surname, "Last Name")
+            <br />
+            @Html.EditorFor(m => m.Name.Surname)
+
+            @Html.ValidationMessageFor(m => m.Name.Surname)
+ 
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Tel, "Telephone")
+            <br />
+            @Html.EditorFor(m => m.Tel)
+            @Html.ValidationMessageFor(m => m.Tel)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Additional_Information, "Additional Information")
+            <br />
+            @Html.EditorFor(m => m.Additional_Information)
+            @Html.ValidationMessageFor(m => m.Additional_Information)
+        </p>
+        <p><input type="submit" value="Send" />@Html.ActionLink("Return to the Directory","ShowData","Directory")</p>
+
+}
+}

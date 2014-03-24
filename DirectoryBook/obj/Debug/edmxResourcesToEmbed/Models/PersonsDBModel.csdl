@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PersonsDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PersonsDBEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Names" EntityType="PersonsDBModel.Name" />
+    <EntitySet Name="Phones" EntityType="PersonsDBModel.Phone" />
+    <AssociationSet Name="PK_Phones_Names" Association="PersonsDBModel.PK_Phones_Names">
+      <End Role="Names" EntitySet="Names" />
+      <End Role="Phones" EntitySet="Phones" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Name">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="TName" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Surname" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <NavigationProperty Name="Phones" Relationship="PersonsDBModel.PK_Phones_Names" FromRole="Names" ToRole="Phones" />
+  </EntityType>
+  <EntityType Name="Phone">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Tel" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Additional_Information" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="PersonId" Type="Int32" />
+    <NavigationProperty Name="Name" Relationship="PersonsDBModel.PK_Phones_Names" FromRole="Phones" ToRole="Names" />
+  </EntityType>
+  <Association Name="PK_Phones_Names">
+    <End Role="Names" Type="PersonsDBModel.Name" Multiplicity="0..1" />
+    <End Role="Phones" Type="PersonsDBModel.Phone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Names">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Phones">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
